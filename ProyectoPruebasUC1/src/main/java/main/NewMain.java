@@ -4,18 +4,33 @@
  */
 package main;
 
+import Persistencia.ListJpaController;
+import Persistencia.SingletonEntityManager;
+import Persistencia.TaskJpaController;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import model.Task;
 
 /**
  *
- * @author xxbry
+ * @author xfs85
  */
 public class NewMain {
 
     /**
      * @param args the command line arguments
      */
+    
     public static void main(String[] args) {
-        
+    TaskJpaController controller = new TaskJpaController();
+    Task t = new Task();
+    
+    t.setName("Raúl");
+    
+    controller.create(t);
+      
+      
+      
     }
     
 }
