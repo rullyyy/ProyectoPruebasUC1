@@ -30,8 +30,6 @@ public class ToDoList implements Serializable {
    @OneToMany(mappedBy = "toDoList", cascade = CascadeType.ALL)
     private List<Task> tasks;
 
-   
-   
     public ToDoList() {
     }
 
@@ -39,13 +37,6 @@ public class ToDoList implements Serializable {
         this.id = id;
         this.tasks = tasks;
     }
-
-    
-    
-    
-
-  
-
 
     public void agrega(Task taskToAdd){
         this.tasks.add(taskToAdd);
