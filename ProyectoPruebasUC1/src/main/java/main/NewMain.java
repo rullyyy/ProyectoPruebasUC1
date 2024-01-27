@@ -4,6 +4,7 @@
  */
 package main;
 
+import GUI.ToDoFrm;
 import Persistencia.ListJpaController;
 import Persistencia.SingletonEntityManager;
 import Persistencia.TaskJpaController;
@@ -22,12 +23,7 @@ public class NewMain {
      */
     
     public static void main(String[] args) {
-    TaskJpaController controller = new TaskJpaController();
-    Task t = new Task();
-    
-    t.setName("Raúl");
-    
-    controller.create(t);
+    new ToDoFrm().setVisible(true);
       
       
       
