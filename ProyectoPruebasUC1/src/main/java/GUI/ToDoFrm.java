@@ -4,18 +4,53 @@
  */
 package GUI;
 
+import javax.swing.JTable;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+
 /**
  *
  * @author xfs85
  */
 public class ToDoFrm extends javax.swing.JFrame {
 
+   
     /**
      * Creates new form ToDoFrm
      */
+    
     public ToDoFrm() {
         initComponents();
+ 
+       toDoTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                
+                if (!e.getValueIsAdjusting() && toDoTable.getSelectedRow() != -1) {
+                    // Activar el botón cuando hay una fila seleccionada
+                    lblEditBtn.setVisible(false);
+                    lblCompleteBtn.setVisible(false);
+                    editBtn.setEnabled(true);
+                    deleteBtn.setEnabled(true);
+                    
+                    
+                }
+                
+            }
+            
+            
+        });
+       
+       
+
+       
     }
+      
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,8 +63,10 @@ public class ToDoFrm extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        toDoTable = new javax.swing.JTable();
+        lblEditBtn = new javax.swing.JLabel();
+        lblCompleteBtn = new javax.swing.JLabel();
+        Main = new javax.swing.JLabel();
         editBtn = new javax.swing.JButton();
         deleteBtn = new javax.swing.JButton();
         addBtn = new javax.swing.JButton();
@@ -39,9 +76,10 @@ public class ToDoFrm extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        toDoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null},
+                {null, null}
             },
             new String [] {
                 "Nombre", "Fecha limite"
@@ -55,22 +93,30 @@ public class ToDoFrm extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setColumnSelectionAllowed(true);
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
+        toDoTable.setColumnSelectionAllowed(true);
+        toDoTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        toDoTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(toDoTable);
+        toDoTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (toDoTable.getColumnModel().getColumnCount() > 0) {
+            toDoTable.getColumnModel().getColumn(0).setResizable(false);
+            toDoTable.getColumnModel().getColumn(1).setResizable(false);
         }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 430, 350));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main.jpg"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -4, 720, 480));
+        lblEditBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/disabledEditBtn.png"))); // NOI18N
+        jPanel1.add(lblEditBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(517, 244, 160, -1));
+
+        lblCompleteBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/disabledCompleteBtn.png"))); // NOI18N
+        jPanel1.add(lblCompleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(517, 313, -1, -1));
+
+        Main.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main 2.jpg"))); // NOI18N
+        jPanel1.add(Main, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -4, 720, 480));
 
         editBtn.setBorderPainted(false);
         editBtn.setContentAreaFilled(false);
+        editBtn.setEnabled(false);
         editBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editBtnActionPerformed(evt);
@@ -80,6 +126,7 @@ public class ToDoFrm extends javax.swing.JFrame {
 
         deleteBtn.setBorderPainted(false);
         deleteBtn.setContentAreaFilled(false);
+        deleteBtn.setEnabled(false);
         deleteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteBtnActionPerformed(evt);
@@ -104,14 +151,19 @@ public class ToDoFrm extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
+        if(toDoTable.getSelectedRow() != -1){
+            toDoTable.clearSelection();
+        }
         new AddTaskFrm().setVisible(true);
     }//GEN-LAST:event_addBtnActionPerformed
 
@@ -126,12 +178,14 @@ public class ToDoFrm extends javax.swing.JFrame {
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Main;
     private javax.swing.JButton addBtn;
     private javax.swing.JButton deleteBtn;
     private javax.swing.JButton editBtn;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblCompleteBtn;
+    private javax.swing.JLabel lblEditBtn;
+    private javax.swing.JTable toDoTable;
     // End of variables declaration//GEN-END:variables
 }

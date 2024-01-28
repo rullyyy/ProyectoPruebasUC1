@@ -10,7 +10,7 @@ import Persistencia.SingletonEntityManager;
 import Persistencia.TaskJpaController;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import model.Task;
+import dominio.Task;
 
 /**
  *

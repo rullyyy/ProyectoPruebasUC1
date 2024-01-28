@@ -4,6 +4,9 @@
  */
 package GUI;
 
+import Persistencia.TaskJpaController;
+import dominio.Task;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,12 +33,13 @@ public class AddTaskFrm extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         cmbColor = new javax.swing.JComboBox<>();
+        dateTimePick = new com.github.lgooddatepicker.components.DateTimePicker();
         txtName = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         addBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -43,6 +47,7 @@ public class AddTaskFrm extends javax.swing.JFrame {
         cmbColor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rojo", "Azul", "Verde", "Amarillo", "Morado", "Rosa", "Naranja" }));
         cmbColor.setSelectedIndex(-1);
         jPanel1.add(cmbColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, -1, -1));
+        jPanel1.add(dateTimePick, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, -1, -1));
         jPanel1.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 250, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/AddTask.png"))); // NOI18N
@@ -82,6 +87,15 @@ public class AddTaskFrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
+        TaskJpaController taskJpa = new TaskJpaController();
+        Task task = new Task();
+        
+        task.setName(txtName.getText());
+        task.setColor(cmbColor.getSelectedItem().toString()); 
+        task.setFinalDate(dateTimePick.getDateTimeStrict());
+        
+        taskJpa.create(task);
+        JOptionPane.showMessageDialog(null, "Se ha añadido la tarea");
         this.dispose();
     }//GEN-LAST:event_addBtnActionPerformed
 
@@ -95,6 +109,7 @@ public class AddTaskFrm extends javax.swing.JFrame {
     private javax.swing.JButton addBtn;
     private javax.swing.JButton cancelBtn;
     private javax.swing.JComboBox<String> cmbColor;
+    private com.github.lgooddatepicker.components.DateTimePicker dateTimePick;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtName;

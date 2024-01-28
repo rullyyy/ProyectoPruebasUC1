@@ -2,10 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package model;
-
+package dominio;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,12 +16,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-/**
- *
- * @author xfs85
- */
 @Entity
-@Table (name = "Task")
+@Table(name = "Task")
 public class Task implements Serializable {
 
     @Id
@@ -33,32 +28,26 @@ public class Task implements Serializable {
     private String name;
 
     @Column(name = "finalDate")
-    @Temporal(TemporalType.DATE)
-    private Date finalDate;
-
-    @Column(name = "inicialDate")
-    @Temporal(TemporalType.DATE)
-    private Date inicialDate;
+    private LocalDateTime finalDate;
 
     @Column(name = "color")
     private String color;
-    
+
     @ManyToOne
-    @JoinColumn (name = "idToDoList")
+    @JoinColumn(name = "idToDoList")
     private ToDoList toDoList;
 
     public Task() {
     }
 
-    public Task(String name, Date finalDate, Date inicialDate, String color, ToDoList toDoList) {
+    public Task(String name, LocalDateTime finalDate, String color, ToDoList toDoList) {
         this.name = name;
         this.finalDate = finalDate;
-        this.inicialDate = inicialDate;
         this.color = color;
         this.toDoList = toDoList;
     }
 
-    
+    // Getters and setters
 
     public Long getId() {
         return id;
@@ -76,20 +65,12 @@ public class Task implements Serializable {
         this.name = name;
     }
 
-    public Date getFinalDate() {
+    public LocalDateTime getFinalDate() {
         return finalDate;
     }
 
-    public void setFinalDate(Date finalDate) {
+    public void setFinalDate(LocalDateTime finalDate) {
         this.finalDate = finalDate;
-    }
-
-    public Date getInicialDate() {
-        return inicialDate;
-    }
-
-    public void setInicialDate(Date inicialDate) {
-        this.inicialDate = inicialDate;
     }
 
     public String getColor() {
@@ -99,6 +80,12 @@ public class Task implements Serializable {
     public void setColor(String color) {
         this.color = color;
     }
-    
-    
+
+    public ToDoList getToDoList() {
+        return toDoList;
+    }
+
+    public void setToDoList(ToDoList toDoList) {
+        this.toDoList = toDoList;
+    }
 }

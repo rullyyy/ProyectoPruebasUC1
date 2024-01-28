@@ -27,16 +27,19 @@ public class EditTaskFrm extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        dateTimePicker1 = new com.github.lgooddatepicker.components.DateTimePicker();
         cmbColor = new javax.swing.JComboBox<>();
         txtName = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         cancelBtn = new javax.swing.JButton();
         editBtn = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Editar Tarea");
         setResizable(false);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.add(dateTimePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, -1, -1));
 
         cmbColor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rojo", "Azul", "Verde", "Amarillo", "Morado", "Rosa", "Naranja" }));
         cmbColor.setSelectedIndex(-1);
@@ -93,6 +96,7 @@ public class EditTaskFrm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelBtn;
     private javax.swing.JComboBox<String> cmbColor;
+    private com.github.lgooddatepicker.components.DateTimePicker dateTimePicker1;
     private javax.swing.JButton editBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
