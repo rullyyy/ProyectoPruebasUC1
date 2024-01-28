@@ -4,10 +4,9 @@
  */
 package GUI;
 
-import Persistencia.TaskJpaController;
 import dominio.Task;
-import java.util.Date;
 import javax.swing.JOptionPane;
+import negocio.TaskBusiness;
 
 /**
  *
@@ -87,23 +86,23 @@ public class AddTaskFrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
-        TaskJpaController taskJpa = new TaskJpaController();
+        TaskBusiness taskBs = new TaskBusiness();
         Task task = new Task();
-        
         task.setName(txtName.getText());
-        task.setColor(cmbColor.getSelectedItem().toString()); 
+        task.setColor(cmbColor.getSelectedItem().toString());
         task.setFinalDate(dateTimePick.getDateTimeStrict());
         
-        taskJpa.create(task);
+        taskBs.create(task); 
+        
         JOptionPane.showMessageDialog(null, "Se ha añadido la tarea");
         this.dispose();
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         this.dispose();
+
     }//GEN-LAST:event_cancelBtnActionPerformed
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;

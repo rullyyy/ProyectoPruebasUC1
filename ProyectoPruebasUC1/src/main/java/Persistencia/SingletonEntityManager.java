@@ -32,5 +32,6 @@ public class SingletonEntityManager {
             entityManagerFactory = Persistence.createEntityManagerFactory("ConexionPU");
         }
         return entityManagerFactory;
+
     }
 }

@@ -37,13 +37,14 @@ public class TaskJpaController implements Serializable {
     }
 
 
-    public void create(Task task) {
+    public Task create(Task task) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(task);
             em.getTransaction().commit();
+            return task; 
         } finally {
             if (em != null) {
                 em.close();
