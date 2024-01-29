@@ -210,11 +210,13 @@ public class ToDoFrm extends javax.swing.JFrame {
       int selectedRow = toDoTable.getSelectedRow();
 
                 if (selectedRow != -1) {
-
-                    Object nameData = toDoTable.getValueAt(selectedRow, 0);
-                    Object dateData = (LocalDateTime) toDoTable.getValueAt(selectedRow, 1);
-
-                    EditTaskFrm taskEdited = new EditTaskFrm(nameData.toString(), (LocalDateTime) dateData);
+                    Task taskToEdit= new Task();
+                    taskToEdit.setName(String.valueOf(toDoTable.getValueAt(selectedRow, 0)));
+                   
+                  
+                    taskToEdit.setFinalDate((LocalDateTime) toDoTable.getValueAt(selectedRow, 1));
+                    
+                    EditTaskFrm taskEdited = new EditTaskFrm(taskToEdit);
 
                     taskEdited.setVisible(true);
                 } else {

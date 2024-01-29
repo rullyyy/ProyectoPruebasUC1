@@ -21,8 +21,12 @@ public class TaskBusiness {
     
     public Task edit(Task task){
         TaskJpaController taskJpa = new TaskJpaController();
-        
-        return taskJpa.edit(task);
+        try{
+         return taskJpa.edit(task);   
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+       return task;  
     }
     
 }

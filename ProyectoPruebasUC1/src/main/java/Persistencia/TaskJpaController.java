@@ -52,13 +52,14 @@ public class TaskJpaController implements Serializable {
         }
     }
 
-    public void edit(Task task) throws NonexistentEntityException, Exception {
+    public Task edit(Task task) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             task = em.merge(task);
             em.getTransaction().commit();
+            return task; 
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {

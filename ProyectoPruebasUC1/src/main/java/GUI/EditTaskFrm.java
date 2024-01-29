@@ -4,22 +4,25 @@
  */
 package GUI;
 
-import java.time.LocalDateTime;
+import dominio.Task;
+import negocio.TaskBusiness;
 
 /**
  *
  * @author xfs85
  */
 public class EditTaskFrm extends javax.swing.JFrame {
-
+    Task taskForEditMethod; 
+    TaskBusiness taskBs = new TaskBusiness(); 
     /**
      * Creates new form EditTaskFrm
      */
-    public EditTaskFrm(String nameData, LocalDateTime dateData) {
+    public EditTaskFrm(Task taskToEdit) {
         initComponents();
-        txtName.setText(nameData);
-        dateTimePicker1.setDateTimeStrict(dateData);
-        
+        this.taskForEditMethod = taskToEdit; 
+        txtName.setText(taskToEdit.getName());
+        dateTimePicker1.setDateTimeStrict(taskToEdit.getFinalDate());
+        this.taskForEditMethod = taskToEdit; 
     }
 
     /**
@@ -89,15 +92,20 @@ public class EditTaskFrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
-        
+        this.taskForEditMethod.setName(this.txtName.getText());
+        this.taskForEditMethod.setColor(this.cmbColor.getSelectedItem().toString());
+        this.taskForEditMethod.setFinalDate(this.dateTimePicker1.getDateTimeStrict());
+     
+        taskBs.edit(this.taskForEditMethod); 
         this.dispose();
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         this.dispose();
     }//GEN-LAST:event_cancelBtnActionPerformed
+    
 
- 
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelBtn;
