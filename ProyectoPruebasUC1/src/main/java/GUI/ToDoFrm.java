@@ -4,11 +4,18 @@
  */
 package GUI;
 
+import Persistencia.TaskJpaController;
+import dominio.Task;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,41 +23,55 @@ import javax.swing.event.ListSelectionListener;
  */
 public class ToDoFrm extends javax.swing.JFrame {
 
-   
     /**
      * Creates new form ToDoFrm
      */
-    
+    DefaultTableModel tableModelTasks = new DefaultTableModel();
+    TaskJpaController taskJpa = new TaskJpaController();
+
     public ToDoFrm() {
         initComponents();
- 
-       toDoTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        tableModelTasks.addColumn("Nombre");
+        tableModelTasks.addColumn("Fecha limite");
+        toDoTable.setModel(tableModelTasks);
+        cargarTasks();
+        toDoTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                
+
                 if (!e.getValueIsAdjusting() && toDoTable.getSelectedRow() != -1) {
                     // Activar el botón cuando hay una fila seleccionada
                     lblEditBtn.setVisible(false);
                     lblCompleteBtn.setVisible(false);
                     editBtn.setEnabled(true);
                     deleteBtn.setEnabled(true);
-                    
-                    
-                }
-                
-            }
-            
-            
-        });
-       
-       
 
-       
+                }
+
+            }
+        });
+
+//        editBtn.addActionListener(new ActionListener() {
+//
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                int selectedRow = toDoTable.getSelectedRow();
+//
+//                if (selectedRow != -1) {
+//
+//                    Object data = toDoTable.getValueAt(selectedRow, 0);
+//
+//                    EditTaskFrm taskEdited = new EditTaskFrm();
+//
+//                    taskEdited.setVisible(true);
+//                } else {
+//                    JOptionPane.showMessageDialog(null, "Seleccione una tarea para editar");
+//                }
+//            }
+//
+//        });
+
     }
-      
-    
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -158,24 +179,55 @@ public class ToDoFrm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
+    private void cargarTasks() {
+        List<Task> tasks = taskJpa.findTaskEntities();
+        tableModelTasks.setRowCount(0);
+
+        for (Task task : tasks) {
+            Object[] row = {
+                task.getName(),
+                task.getFinalDate()
+            };
+
+            tableModelTasks.addRow(row);
+
+        }
+    }
+
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
-        if(toDoTable.getSelectedRow() != -1){
+
+        if (toDoTable.getSelectedRow() != -1) {
             toDoTable.clearSelection();
         }
+
         new AddTaskFrm().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_addBtnActionPerformed
 
+
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
-        new EditTaskFrm().setVisible(true);
+
+      int selectedRow = toDoTable.getSelectedRow();
+
+                if (selectedRow != -1) {
+
+                    Object nameData = toDoTable.getValueAt(selectedRow, 0);
+                    Object dateData = (LocalDateTime) toDoTable.getValueAt(selectedRow, 1);
+
+                    EditTaskFrm taskEdited = new EditTaskFrm(nameData.toString(), (LocalDateTime) dateData);
+
+                    taskEdited.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Seleccione una tarea para editar");
+                }
+                
+                this.dispose();
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_deleteBtnActionPerformed
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Main;

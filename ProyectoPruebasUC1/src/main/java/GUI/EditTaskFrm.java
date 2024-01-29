@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import java.time.LocalDateTime;
+
 /**
  *
  * @author xfs85
@@ -13,8 +15,11 @@ public class EditTaskFrm extends javax.swing.JFrame {
     /**
      * Creates new form EditTaskFrm
      */
-    public EditTaskFrm() {
+    public EditTaskFrm(String nameData, LocalDateTime dateData) {
         initComponents();
+        txtName.setText(nameData);
+        dateTimePicker1.setDateTimeStrict(dateData);
+        
     }
 
     /**
@@ -84,6 +89,7 @@ public class EditTaskFrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
+        
         this.dispose();
     }//GEN-LAST:event_editBtnActionPerformed
 

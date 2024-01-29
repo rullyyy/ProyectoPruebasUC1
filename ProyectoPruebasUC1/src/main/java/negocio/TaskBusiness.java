@@ -18,4 +18,11 @@ public class TaskBusiness {
         
         return taskJpa.create(task);
     }
+    
+    public Task edit(Task task){
+        TaskJpaController taskJpa = new TaskJpaController();
+        
+        return taskJpa.edit(task);
+    }
+    
 }

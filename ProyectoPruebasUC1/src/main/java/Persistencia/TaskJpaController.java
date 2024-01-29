@@ -73,6 +73,7 @@ public class TaskJpaController implements Serializable {
                 em.close();
             }
         }
+       
     }
 
     public void destroy(Long id) throws NonexistentEntityException {

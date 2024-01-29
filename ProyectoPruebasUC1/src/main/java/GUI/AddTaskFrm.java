@@ -38,7 +38,7 @@ public class AddTaskFrm extends javax.swing.JFrame {
         addBtn = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -96,11 +96,12 @@ public class AddTaskFrm extends javax.swing.JFrame {
         
         JOptionPane.showMessageDialog(null, "Se ha añadido la tarea");
         this.dispose();
+        new ToDoFrm().setVisible(true);
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         this.dispose();
-
+        new ToDoFrm().setVisible(true);
     }//GEN-LAST:event_cancelBtnActionPerformed
 
 
