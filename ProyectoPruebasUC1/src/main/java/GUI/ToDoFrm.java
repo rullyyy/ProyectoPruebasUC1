@@ -5,15 +5,19 @@
 package GUI;
 
 import Persistencia.TaskJpaController;
+import Persistencia.exceptions.NonexistentEntityException;
 import dominio.Task;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import negocio.TaskBusiness;
 
 /**
  *
@@ -236,7 +240,27 @@ public class ToDoFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
-        // TODO add your handling code here:
+         TaskBusiness tb = new TaskBusiness();
+                  int selectedRow = toDoTable.getSelectedRow();
+                  
+                  if (selectedRow != -1) {
+                    Task taskToDelete = new Task();
+                    
+                    taskToDelete.setId((Long) toDoTable.getValueAt(selectedRow, 0));
+             try {
+                 tb.delete(taskToDelete.getId());
+             } catch (NonexistentEntityException ex) {
+                 Logger.getLogger(ToDoFrm.class.getName()).log(Level.SEVERE, null, ex);
+             }
+                    
+                    DefaultTableModel model = (DefaultTableModel) toDoTable.getModel();
+                    model.removeRow(selectedRow);
+                    
+                    JOptionPane.showMessageDialog(null, "Se ha eliminado la tarea con éxito");
+                }
+            
+
+       
     }//GEN-LAST:event_deleteBtnActionPerformed
 
 

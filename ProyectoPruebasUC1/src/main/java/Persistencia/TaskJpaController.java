@@ -77,7 +77,7 @@ public class TaskJpaController implements Serializable {
        
     }
 
-    public void destroy(Long id) throws NonexistentEntityException {
+    public Long destroy(Long id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -96,6 +96,7 @@ public class TaskJpaController implements Serializable {
                 em.close();
             }
         }
+        return null;
     }
 
     public List<Task> findTaskEntities() {

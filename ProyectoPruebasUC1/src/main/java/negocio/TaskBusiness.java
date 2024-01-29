@@ -5,6 +5,7 @@
 package negocio;
 
 import Persistencia.TaskJpaController;
+import Persistencia.exceptions.NonexistentEntityException;
 import dominio.Task;
 
 /**
@@ -27,6 +28,12 @@ public class TaskBusiness {
             e.printStackTrace();
         }
        return task;  
+    }
+    
+    public Long delete(Long id) throws NonexistentEntityException{
+        TaskJpaController taskJpa = new TaskJpaController();
+        
+         return taskJpa.destroy(id);
     }
     
 }

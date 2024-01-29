@@ -98,6 +98,7 @@ public class EditTaskFrm extends javax.swing.JFrame {
         
         taskBs.edit(this.taskForEditMethod); 
         this.dispose();
+        new ToDoFrm().setVisible(true);
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
