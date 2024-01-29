@@ -5,6 +5,8 @@
 package GUI;
 
 import dominio.Task;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
 import negocio.TaskBusiness;
 
@@ -86,7 +88,8 @@ public class AddTaskFrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
-        TaskBusiness taskBs = new TaskBusiness();
+        if(verificarFecha() == true){
+          TaskBusiness taskBs = new TaskBusiness();
         Task task = new Task();
         task.setName(txtName.getText());
         task.setColor(cmbColor.getSelectedItem().toString());
@@ -96,7 +99,11 @@ public class AddTaskFrm extends javax.swing.JFrame {
         
         JOptionPane.showMessageDialog(null, "Se ha añadido la tarea");
         this.dispose();
-        new ToDoFrm().setVisible(true);
+        new ToDoFrm().setVisible(true);  
+        }else{
+            JOptionPane.showMessageDialog(null, "Seleccione una fecha valida");
+        }
+        
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
@@ -104,6 +111,19 @@ public class AddTaskFrm extends javax.swing.JFrame {
         new ToDoFrm().setVisible(true);
     }//GEN-LAST:event_cancelBtnActionPerformed
 
+       public boolean verificarFecha() {
+        LocalDateTime fechaSeleccionada = dateTimePick.getDateTimeStrict();
+        LocalDateTime fechaActual = LocalDateTime.now();
+
+        
+        if(fechaSeleccionada == null){
+            return true;
+        }else if (fechaSeleccionada.isBefore(fechaActual) || fechaSeleccionada.equals(fechaActual)) {
+            return false;
+        }
+
+        return true;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;

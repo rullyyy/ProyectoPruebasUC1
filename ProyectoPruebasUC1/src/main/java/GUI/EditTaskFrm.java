@@ -5,6 +5,8 @@
 package GUI;
 
 import dominio.Task;
+import java.time.LocalDateTime;
+import javax.swing.JOptionPane;
 import negocio.TaskBusiness;
 
 /**
@@ -42,7 +44,7 @@ public class EditTaskFrm extends javax.swing.JFrame {
         cancelBtn = new javax.swing.JButton();
         editBtn = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Editar Tarea");
         setResizable(false);
 
@@ -92,19 +94,37 @@ public class EditTaskFrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
-        this.taskForEditMethod.setName(this.txtName.getText());
+        if(verificarFecha() == true){
+          this.taskForEditMethod.setName(this.txtName.getText());
         this.taskForEditMethod.setColor(this.cmbColor.getSelectedItem().toString());
         this.taskForEditMethod.setFinalDate(this.dateTimePicker1.getDateTimeStrict());
         
         taskBs.edit(this.taskForEditMethod); 
         this.dispose();
-        new ToDoFrm().setVisible(true);
+        new ToDoFrm().setVisible(true);  
+        }else{
+            JOptionPane.showMessageDialog(null, "Seleccione una fecha valida");
+        }
+        
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         this.dispose();
+        new ToDoFrm().setVisible(true);
     }//GEN-LAST:event_cancelBtnActionPerformed
-    
+    public boolean verificarFecha() {
+        LocalDateTime fechaSeleccionada = dateTimePicker1.getDateTimeStrict();
+        LocalDateTime fechaActual = LocalDateTime.now();
+
+        
+        if(fechaSeleccionada == null){
+            return true;
+        }else if (fechaSeleccionada.isBefore(fechaActual) || fechaSeleccionada.equals(fechaActual)) {
+            return false;
+        }
+
+        return true;
+    }
 
 
 

@@ -7,6 +7,7 @@ package GUI;
 import Persistencia.TaskJpaController;
 import Persistencia.exceptions.NonexistentEntityException;
 import dominio.Task;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Level;
@@ -254,6 +255,7 @@ public class ToDoFrm extends javax.swing.JFrame {
        
     }//GEN-LAST:event_deleteBtnActionPerformed
 
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Main;
