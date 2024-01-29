@@ -45,8 +45,7 @@ public class AddTaskFrm extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        cmbColor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rojo", "Azul", "Verde", "Amarillo", "Morado", "Rosa", "Naranja" }));
-        cmbColor.setSelectedIndex(-1);
+        cmbColor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin color", "Rojo", "Azul", "Verde", "Amarillo", "Morado", "Rosa", "Naranja" }));
         jPanel1.add(cmbColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, -1, -1));
         jPanel1.add(dateTimePick, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, -1, -1));
         jPanel1.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 250, -1));
@@ -87,11 +86,24 @@ public class AddTaskFrm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public boolean verificaFormatosVacios() {
+    String nombreTarea = txtName.getText().trim();
+
+    
+    if (nombreTarea.isBlank()) {
+        JOptionPane.showMessageDialog(null, "Debe proporcionar un nombre de tarea válido");
+        return false;
+    }
+
+    return true;
+}
+
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
+        if(verificaFormatosVacios() == true ){
         if(verificarFecha() == true){
           TaskBusiness taskBs = new TaskBusiness();
         Task task = new Task();
-        task.setName(txtName.getText());
+        task.setName(txtName.getText().trim());
         task.setColor(cmbColor.getSelectedItem().toString());
         task.setFinalDate(dateTimePick.getDateTimeStrict());
         
@@ -103,7 +115,7 @@ public class AddTaskFrm extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(null, "Seleccione una fecha valida");
         }
-        
+        }  
     }//GEN-LAST:event_addBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed

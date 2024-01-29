@@ -14,17 +14,19 @@ import negocio.TaskBusiness;
  * @author xfs85
  */
 public class EditTaskFrm extends javax.swing.JFrame {
-    Task taskForEditMethod; 
-    TaskBusiness taskBs = new TaskBusiness(); 
+
+    Task taskForEditMethod;
+    TaskBusiness taskBs = new TaskBusiness();
+
     /**
      * Creates new form EditTaskFrm
      */
     public EditTaskFrm(Task taskToEdit) {
         initComponents();
-        this.taskForEditMethod = taskToEdit; 
+        this.taskForEditMethod = taskToEdit;
         txtName.setText(taskToEdit.getName());
         dateTimePicker1.setDateTimeStrict(taskToEdit.getFinalDate());
-        this.taskForEditMethod = taskToEdit; 
+        this.taskForEditMethod = taskToEdit;
     }
 
     /**
@@ -51,8 +53,7 @@ public class EditTaskFrm extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel1.add(dateTimePicker1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, -1, -1));
 
-        cmbColor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rojo", "Azul", "Verde", "Amarillo", "Morado", "Rosa", "Naranja" }));
-        cmbColor.setSelectedIndex(-1);
+        cmbColor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sin color", "Rojo", "Azul", "Verde", "Amarillo", "Morado", "Rosa", "Naranja" }));
         jPanel1.add(cmbColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, -1, -1));
         jPanel1.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 250, -1));
 
@@ -92,20 +93,32 @@ public class EditTaskFrm extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+public boolean verificaFormatosVacios() {
+        String nombreTarea = txtName.getText().trim();
+
+        if (nombreTarea.isBlank()) {
+            JOptionPane.showMessageDialog(null, "Debe proporcionar un nombre de tarea válido");
+            return false;
+        }
+
+        return true;
+    }
 
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
-        if(verificarFecha() == true){
-          this.taskForEditMethod.setName(this.txtName.getText());
-        this.taskForEditMethod.setColor(this.cmbColor.getSelectedItem().toString());
-        this.taskForEditMethod.setFinalDate(this.dateTimePicker1.getDateTimeStrict());
-        
-        taskBs.edit(this.taskForEditMethod); 
-        this.dispose();
-        new ToDoFrm().setVisible(true);  
-        }else{
+        if(verificaFormatosVacios() == true){
+        if (verificarFecha() == true) {
+            this.taskForEditMethod.setName(this.txtName.getText().trim());
+            this.taskForEditMethod.setColor(this.cmbColor.getSelectedItem().toString());
+            this.taskForEditMethod.setFinalDate(this.dateTimePicker1.getDateTimeStrict());
+
+            taskBs.edit(this.taskForEditMethod);
+            this.dispose();
+            new ToDoFrm().setVisible(true);
+        } else {
             JOptionPane.showMessageDialog(null, "Seleccione una fecha valida");
         }
-        
+
+        }
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
@@ -116,16 +129,14 @@ public class EditTaskFrm extends javax.swing.JFrame {
         LocalDateTime fechaSeleccionada = dateTimePicker1.getDateTimeStrict();
         LocalDateTime fechaActual = LocalDateTime.now();
 
-        
-        if(fechaSeleccionada == null){
+        if (fechaSeleccionada == null) {
             return true;
-        }else if (fechaSeleccionada.isBefore(fechaActual) || fechaSeleccionada.equals(fechaActual)) {
+        } else if (fechaSeleccionada.isBefore(fechaActual) || fechaSeleccionada.equals(fechaActual)) {
             return false;
         }
 
         return true;
     }
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

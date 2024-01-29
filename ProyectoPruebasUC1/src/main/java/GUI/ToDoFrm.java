@@ -125,13 +125,13 @@ public class ToDoFrm extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 430, 350));
 
         lblEditBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/disabledEditBtn.png"))); // NOI18N
-        jPanel1.add(lblEditBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(517, 244, 160, -1));
+        jPanel1.add(lblEditBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(517, 238, 160, -1));
 
         lblCompleteBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/disabledCompleteBtn.png"))); // NOI18N
-        jPanel1.add(lblCompleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(517, 313, -1, -1));
+        jPanel1.add(lblCompleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(517, 307, -1, -1));
 
-        Main.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main 2.jpg"))); // NOI18N
-        jPanel1.add(Main, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -4, 720, 480));
+        Main.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ToDoMain.png"))); // NOI18N
+        jPanel1.add(Main, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 720, 480));
 
         editBtn.setBorderPainted(false);
         editBtn.setContentAreaFilled(false);
@@ -141,7 +141,7 @@ public class ToDoFrm extends javax.swing.JFrame {
                 editBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(editBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 243, 160, 40));
+        jPanel1.add(editBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(517, 237, 160, 40));
 
         deleteBtn.setBorderPainted(false);
         deleteBtn.setContentAreaFilled(false);
@@ -151,7 +151,7 @@ public class ToDoFrm extends javax.swing.JFrame {
                 deleteBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(deleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 313, 160, 40));
+        jPanel1.add(deleteBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 306, 160, 40));
 
         addBtn.setBorderPainted(false);
         addBtn.setContentAreaFilled(false);
@@ -160,7 +160,7 @@ public class ToDoFrm extends javax.swing.JFrame {
                 addBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 173, 170, 40));
+        jPanel1.add(addBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(511, 115, 170, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -192,7 +192,7 @@ public class ToDoFrm extends javax.swing.JFrame {
             };
 
             tableModelTasks.addRow(row);
-
+ 
         }
     }
 
@@ -224,11 +224,12 @@ public class ToDoFrm extends javax.swing.JFrame {
                     EditTaskFrm taskEditor = new EditTaskFrm(taskToEdit);
 
                     taskEditor.setVisible(true);
+                    this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Seleccione una tarea para editar");
                 }
                 
-                this.dispose();
+                
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
@@ -249,7 +250,9 @@ public class ToDoFrm extends javax.swing.JFrame {
                     model.removeRow(selectedRow);
                     
                     JOptionPane.showMessageDialog(null, "Se ha eliminado la tarea con éxito");
-                }
+                }else{
+                      JOptionPane.showMessageDialog(null, "Seleccione una tarea para eliminar");
+                  }
             
 
        

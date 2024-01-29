@@ -43,17 +43,17 @@
         <Component class="javax.swing.JComboBox" name="cmbColor">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="7">
-                <StringItem index="0" value="Rojo"/>
-                <StringItem index="1" value="Azul"/>
-                <StringItem index="2" value="Verde"/>
-                <StringItem index="3" value="Amarillo"/>
-                <StringItem index="4" value="Morado"/>
-                <StringItem index="5" value="Rosa"/>
-                <StringItem index="6" value="Naranja"/>
+              <StringArray count="8">
+                <StringItem index="0" value="Sin color"/>
+                <StringItem index="1" value="Rojo"/>
+                <StringItem index="2" value="Azul"/>
+                <StringItem index="3" value="Verde"/>
+                <StringItem index="4" value="Amarillo"/>
+                <StringItem index="5" value="Morado"/>
+                <StringItem index="6" value="Rosa"/>
+                <StringItem index="7" value="Naranja"/>
               </StringArray>
             </Property>
-            <Property name="selectedIndex" type="int" value="-1"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
