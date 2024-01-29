@@ -17,6 +17,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import negocio.TaskBusiness;
 
 /**
@@ -38,9 +39,36 @@ public class ToDoFrm extends javax.swing.JFrame {
         tableModelTasks.addColumn("id");
         tableModelTasks.addColumn("Nombre");
         tableModelTasks.addColumn("Fecha limite");
-        
+        tableModelTasks.addColumn("Color");
         
         toDoTable.setModel(tableModelTasks);
+        
+        TableColumn columnColor = toDoTable.getColumnModel().getColumn(3);
+           
+            columnColor.setMinWidth(0);
+            columnColor.setMaxWidth(0);
+            columnColor.setWidth(0);
+            columnColor.setPreferredWidth(0);
+            columnColor.setResizable(false);
+            
+            
+            TableColumn columnId = toDoTable.getColumnModel().getColumn(0);
+           
+            columnId.setMinWidth(0);
+            columnId.setMaxWidth(0);
+            columnId.setWidth(0);
+            columnId.setPreferredWidth(0);
+            columnId.setResizable(false);
+        
+            
+            TableColumn columnName = toDoTable.getColumnModel().getColumn(1);
+            
+            columnName.setResizable(false);
+            
+            TableColumn columnDate = toDoTable.getColumnModel().getColumn(2);
+            
+            columnDate.setResizable(false);
+            
         cargarTasks();
         
         toDoTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -59,25 +87,6 @@ public class ToDoFrm extends javax.swing.JFrame {
             }
         });
 
-//        editBtn.addActionListener(new ActionListener() {
-//
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                int selectedRow = toDoTable.getSelectedRow();
-//
-//                if (selectedRow != -1) {
-//
-//                    Object data = toDoTable.getValueAt(selectedRow, 0);
-//
-//                    EditTaskFrm taskEdited = new EditTaskFrm();
-//
-//                    taskEdited.setVisible(true);
-//                } else {
-//                    JOptionPane.showMessageDialog(null, "Seleccione una tarea para editar");
-//                }
-//            }
-//
-//        });
 
     }
 
@@ -105,23 +114,6 @@ public class ToDoFrm extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        toDoTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Nombre", "Fecha limite"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
         toDoTable.setColumnSelectionAllowed(true);
         toDoTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         toDoTable.getTableHeader().setReorderingAllowed(false);
@@ -182,10 +174,7 @@ public class ToDoFrm extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    private static void resizeColumn(JTable table, int columnIndex, int newWidth) {
-        TableColumn column = table.getColumnModel().getColumn(columnIndex);
-        column.setPreferredWidth(newWidth);
-    }
+   
     private void cargarTasks() {
         List<Task> tasks = taskJpa.findTaskEntities();
         this.tasks = tasks; 
@@ -196,6 +185,7 @@ public class ToDoFrm extends javax.swing.JFrame {
                 task.getId(),
                 task.getName(),
                 task.getFinalDate(),
+                task.getColor()
                
             };
 
