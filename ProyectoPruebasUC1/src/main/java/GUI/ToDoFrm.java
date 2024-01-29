@@ -52,6 +52,7 @@ public class ToDoFrm extends javax.swing.JFrame {
             columnColor.setResizable(false);
             
             
+            
             TableColumn columnId = toDoTable.getColumnModel().getColumn(0);
            
             columnId.setMinWidth(0);
