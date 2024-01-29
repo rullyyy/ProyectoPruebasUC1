@@ -95,7 +95,7 @@ public class EditTaskFrm extends javax.swing.JFrame {
         this.taskForEditMethod.setName(this.txtName.getText());
         this.taskForEditMethod.setColor(this.cmbColor.getSelectedItem().toString());
         this.taskForEditMethod.setFinalDate(this.dateTimePicker1.getDateTimeStrict());
-     
+        
         taskBs.edit(this.taskForEditMethod); 
         this.dispose();
     }//GEN-LAST:event_editBtnActionPerformed

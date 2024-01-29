@@ -6,16 +6,14 @@ package GUI;
 
 import Persistencia.TaskJpaController;
 import dominio.Task;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -26,15 +24,21 @@ public class ToDoFrm extends javax.swing.JFrame {
     /**
      * Creates new form ToDoFrm
      */
+    List<Task> tasks; 
     DefaultTableModel tableModelTasks = new DefaultTableModel();
     TaskJpaController taskJpa = new TaskJpaController();
 
     public ToDoFrm() {
         initComponents();
+        
+        tableModelTasks.addColumn("id");
         tableModelTasks.addColumn("Nombre");
         tableModelTasks.addColumn("Fecha limite");
+        
+        
         toDoTable.setModel(tableModelTasks);
         cargarTasks();
+        
         toDoTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -119,10 +123,6 @@ public class ToDoFrm extends javax.swing.JFrame {
         toDoTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(toDoTable);
         toDoTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        if (toDoTable.getColumnModel().getColumnCount() > 0) {
-            toDoTable.getColumnModel().getColumn(0).setResizable(false);
-            toDoTable.getColumnModel().getColumn(1).setResizable(false);
-        }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 430, 350));
 
@@ -178,15 +178,21 @@ public class ToDoFrm extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    private static void resizeColumn(JTable table, int columnIndex, int newWidth) {
+        TableColumn column = table.getColumnModel().getColumn(columnIndex);
+        column.setPreferredWidth(newWidth);
+    }
     private void cargarTasks() {
         List<Task> tasks = taskJpa.findTaskEntities();
+        this.tasks = tasks; 
         tableModelTasks.setRowCount(0);
-
+        
         for (Task task : tasks) {
             Object[] row = {
+                task.getId(),
                 task.getName(),
-                task.getFinalDate()
+                task.getFinalDate(),
+               
             };
 
             tableModelTasks.addRow(row);
@@ -211,14 +217,17 @@ public class ToDoFrm extends javax.swing.JFrame {
 
                 if (selectedRow != -1) {
                     Task taskToEdit= new Task();
-                    taskToEdit.setName(String.valueOf(toDoTable.getValueAt(selectedRow, 0)));
+                    taskToEdit.setName(String.valueOf(toDoTable.getValueAt(selectedRow, 1)));
                    
                   
-                    taskToEdit.setFinalDate((LocalDateTime) toDoTable.getValueAt(selectedRow, 1));
+                    taskToEdit.setFinalDate((LocalDateTime) toDoTable.getValueAt(selectedRow, 2));
+                    taskToEdit.setId((Long) toDoTable.getValueAt(selectedRow, 0));
                     
-                    EditTaskFrm taskEdited = new EditTaskFrm(taskToEdit);
+                  
+                    
+                    EditTaskFrm taskEditor = new EditTaskFrm(taskToEdit);
 
-                    taskEdited.setVisible(true);
+                    taskEditor.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "Seleccione una tarea para editar");
                 }
